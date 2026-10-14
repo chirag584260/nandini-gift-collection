@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://nandinigift.in/</loc>
-    <lastmod>2026-10-14T01:57:11+00:00</lastmod>
+    <lastmod>2026-10-14T00:00:00+00:00</lastmod>
     <image:image>
       <image:loc>https://nandinigift.in/images/kids-toys-gift-sets-bhopal.webp</image:loc>
     </image:image>
@@ -48,7 +48,7 @@
   </url>
   <url>
     <loc>https://nandinigift.in/products.html</loc>
-    <lastmod>2026-10-14T01:57:11+00:00</lastmod>
+    <lastmod>2026-10-14T00:00:00+00:00</lastmod>
     <image:image>
       <image:loc>https://nandinigift.in/images/diy-craft-gifts-bhopal.webp</image:loc>
     </image:image>
@@ -115,6 +115,25 @@
   </url>
   <url>
     <loc>https://nandinigift.in/contact.html</loc>
-    <lastmod>2026-10-14T01:57:11+00:00</lastmod>
+    <lastmod>2026-10-14T00:00:00+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://nandinigift.in/madhya-pradesh-gift-delivery.html</loc>
+    <lastmod>2026-10-14T00:00:00+00:00</lastmod>
+    <image:image>
+      <image:loc>https://nandinigift.in/images/diwali/mala-orange-yellow.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://nandinigift.in/images/diwali/flower-jhoomar-marigold.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://nandinigift.in/images/diwali/led-water-diya-set.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://nandinigift.in/images/diwali/marigold-toran.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://nandinigift.in/images/diwali/multicolor-gerbera-bunch.webp</image:loc>
+    </image:image>
   </url>
 </urlset>
