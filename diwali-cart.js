@@ -1,6 +1,6 @@
 (() => {
   // Set this to the deployed payment-api URL, without a trailing slash.
-  const PAYMENT_API_BASE = "";
+  const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
     { id: "mala-orange-yellow", name: "Decorative Mala Pack — Orange & Yellow", price: 149, unit: "Pack of 5 pieces", image: "images/diwali/mala-orange-yellow.webp" },
     { id: "mala-orange-white", name: "Decorative Mala Pack — Orange & White", price: 149, unit: "Pack of 5 pieces", image: "images/diwali/mala-orange-white.webp" },
