@@ -22,7 +22,8 @@
     const match = priceText.match(/[0-9][0-9,]*/);
     return {id:`existing-${index}`,name:nameNode?.textContent.trim()||"Gift item",price:match?Number(match[0].replaceAll(",","")):0,unit:"starting price",image:image?.getAttribute("src")||"",fixedPrice:false};
   }).filter(p => p.price && p.image);
-  const ALL_PRODUCTS = [...existing,...DIWALI_PRODUCTS];
+  const KIDS_PRODUCTS = [["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy.jpg"]].map(([id,name,price,unit,image]) => ({id,name,price,unit,image,fixedPrice:true}));
+  const ALL_PRODUCTS = [...existing,...DIWALI_PRODUCTS,...KIDS_PRODUCTS];
   const byId = new Map(ALL_PRODUCTS.map(p => [p.id,p]));
 
   const styleButton = button => {

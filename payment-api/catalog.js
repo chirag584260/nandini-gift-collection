@@ -1,4 +1,5 @@
 export const CATALOG = Object.freeze({
+  "elephant-toy": { name: "Battery-Operated Elephant Toy", price: 399 },
   "mala-orange-yellow": { name: "Decorative Mala Pack — Orange & Yellow", price: 149 },
   "mala-orange-white": { name: "Decorative Mala Pack — Orange & White", price: 149 },
   "flower-jhoomar-marigold": { name: "Flower Jhoomar — Marigold", price: 199 },
@@ -13,7 +14,7 @@ export const CATALOG = Object.freeze({
 
 export function priceCart(items) {
   if (!Array.isArray(items) || items.length < 1 || items.length > 10) {
-    throw new Error("Choose between 1 and 10 Diwali products.");
+    throw new Error("Choose between 1 and 10 fixed-price products.");
   }
 
   const seen = new Set();
