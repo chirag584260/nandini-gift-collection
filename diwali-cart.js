@@ -1,290 +1,138 @@
 (() => {
-  // Set this to the deployed payment-api URL, without a trailing slash.
   const PAYMENT_API_BASE = "https://nandini-gift-collection-1.onrender.com";
-  const PRODUCTS = [
-    { id: "mala-orange-yellow", name: "Decorative Mala Pack — Orange & Yellow", price: 149, unit: "Pack of 5 pieces", image: "images/diwali/mala-orange-yellow.webp" },
-    { id: "mala-orange-white", name: "Decorative Mala Pack — Orange & White", price: 149, unit: "Pack of 5 pieces", image: "images/diwali/mala-orange-white.webp" },
-    { id: "flower-jhoomar-marigold", name: "Flower Jhoomar — Marigold", price: 199, unit: "Each", image: "images/diwali/flower-jhoomar-marigold.webp" },
-    { id: "flower-jhoomar-marigold-jasmine", name: "Flower Jhoomar — Marigold & Jasmine", price: 199, unit: "Each", image: "images/diwali/flower-jhoomar-marigold-jasmine.webp" },
-    { id: "led-water-diya-set", name: "LED Water Diya Set", price: 299, unit: "Per box", image: "images/diwali/led-water-diya-set.webp" },
-    { id: "led-diyas-box", name: "LED Diya Lights — Festive Box", price: 299, unit: "Per box", image: "images/diwali/led-diyas-box.webp" },
-    { id: "marigold-toran", name: "Decorative Toran — Marigold", price: 199, unit: "Each", image: "images/diwali/marigold-toran.webp" },
-    { id: "handmade-bandhanwar", name: "Bandhanwar — Traditional Style", price: 199, unit: "Each", image: "images/diwali/handmade-bandhanwar.webp" },
-    { id: "multicolor-gerbera-bunch", name: "Artificial Flower Bunch — Gerbera", price: 129, unit: "Each", image: "images/diwali/multicolor-gerbera-bunch.webp" },
-    { id: "multicolor-flower-bunch", name: "Artificial Flower Bunch — Mixed Flowers", price: 129, unit: "Each", image: "images/diwali/multicolor-flower-bunch.webp" },
-  ];
-  const productById = new Map(PRODUCTS.map((product) => [product.id, product]));
-  const existing = [...document.querySelectorAll(".shop-gallery figure")].map((figure, index) => {
+  const DIWALI_PRODUCTS = [
+    ["mala-orange-yellow","Decorative Mala Pack — Orange & Yellow",149,"Pack of 5 pieces","images/diwali/mala-orange-yellow.webp"],
+    ["mala-orange-white","Decorative Mala Pack — Orange & White",149,"Pack of 5 pieces","images/diwali/mala-orange-white.webp"],
+    ["flower-jhoomar-marigold","Flower Jhoomar — Marigold",199,"Each","images/diwali/flower-jhoomar-marigold.webp"],
+    ["flower-jhoomar-marigold-jasmine","Flower Jhoomar — Marigold & Jasmine",199,"Each","images/diwali/flower-jhoomar-marigold-jasmine.webp"],
+    ["led-water-diya-set","LED Water Diya Set",299,"Per box","images/diwali/led-water-diya-set.webp"],
+    ["led-diyas-box","LED Diya Lights — Festive Box",299,"Per box","images/diwali/led-diyas-box.webp"],
+    ["marigold-toran","Decorative Toran — Marigold",199,"Each","images/diwali/marigold-toran.webp"],
+    ["handmade-bandhanwar","Bandhanwar — Traditional Style",199,"Each","images/diwali/handmade-bandhanwar.webp"],
+    ["multicolor-gerbera-bunch","Artificial Flower Bunch — Gerbera",129,"Each","images/diwali/multicolor-gerbera-bunch.webp"],
+    ["multicolor-flower-bunch","Artificial Flower Bunch — Mixed Flowers",129,"Each","images/diwali/multicolor-flower-bunch.webp"]
+  ].map(([id,name,price,unit,image]) => ({id,name,price,unit,image,fixedPrice:true}));
+
+  const existing = [...document.querySelectorAll(".shop-gallery figure")].map((figure,index) => {
     const caption = figure.querySelector("figcaption");
     const priceText = caption?.querySelector(".diwali-tag")?.textContent || "";
     const image = figure.querySelector("img");
-    const name = caption?.cloneNode(true);
-    name?.querySelectorAll(".diwali-tag").forEach((node) => node.remove());
+    const nameNode = caption?.cloneNode(true);
+    nameNode?.querySelectorAll(".diwali-tag").forEach(n => n.remove());
     const match = priceText.match(/[0-9][0-9,]*/);
-    const product = {
-      id: `existing-${index}`,
-      name: name?.textContent.trim() || "Gift item",
-      price: match ? Number(match[0].replaceAll(",", "")) : 0,
-      unit: "each, from displayed price",
-      image: image?.getAttribute("src") || "",
-      fixedPrice: false,
+    return {id:`existing-${index}`,name:nameNode?.textContent.trim()||"Gift item",price:match?Number(match[0].replaceAll(",","")):0,unit:"starting price",image:image?.getAttribute("src")||"",fixedPrice:false};
+  }).filter(p => p.price && p.image);
+  const ALL_PRODUCTS = [...existing,...DIWALI_PRODUCTS];
+  const byId = new Map(ALL_PRODUCTS.map(p => [p.id,p]));
+
+  const styleButton = button => {
+    const rules = {
+      display:"block", visibility:"visible", opacity:"1", position:"relative", zIndex:"20",
+      width:"calc(100% - 24px)", minHeight:"46px", height:"auto", margin:"10px 12px 14px",
+      padding:"12px 16px", border:"0", borderRadius:"999px", cursor:"pointer",
+      background:"linear-gradient(130deg,#8e205d,#c92768,#e98225)", color:"#fff",
+      fontSize:"15px", fontWeight:"900", lineHeight:"1.2", boxShadow:"0 5px 16px rgba(99,33,65,.22)"
     };
-    return product;
-  }).filter((product) => product.price > 0 && product.image);
-  const ALL_PRODUCTS = [...existing, ...PRODUCTS.map((product) => ({ ...product, fixedPrice: true }))];
+    for (const [k,v] of Object.entries(rules)) button.style.setProperty(k.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`),v,"important");
+  };
 
-  document.querySelectorAll(".shop-gallery figure").forEach((figure, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "diwali-add existing-product-add";
-    button.dataset.productId = `existing-${index}`;
-    button.textContent = "Add to Cart";
-    const caption = figure.querySelector("figcaption")?.cloneNode(true);
-    caption?.querySelectorAll(".diwali-tag").forEach((node) => node.remove());
-    button.setAttribute("aria-label", `Add ${caption?.textContent.trim() || "gift item"} to cart`);
-    figure.append(button);
-  });
+  function ensureButtons(){
+    document.querySelectorAll(".shop-gallery figure").forEach((figure,index) => {
+      let button = figure.querySelector(".existing-product-add");
+      if (!button) {
+        button = document.createElement("button");
+        button.type = "button";
+        button.className = "diwali-add existing-product-add";
+        button.dataset.productId = `existing-${index}`;
+        button.textContent = "Add to Cart";
+        figure.append(button);
+      }
+      styleButton(button);
+      figure.style.setProperty("overflow","visible","important");
+      figure.style.setProperty("height","auto","important");
+    });
+    document.querySelectorAll(".diwali-product-card .diwali-add").forEach(styleButton);
+    document.querySelectorAll(".diwali-product-info").forEach(info => {
+      info.style.setProperty("display","block","important");
+      info.style.setProperty("visibility","visible","important");
+      info.style.setProperty("opacity","1","important");
+      info.style.setProperty("height","auto","important");
+      info.style.setProperty("overflow","visible","important");
+    });
+    document.querySelectorAll(".diwali-product-card").forEach(card => card.style.setProperty("height","auto","important"));
+  }
+  ensureButtons();
+  setTimeout(ensureButtons,300);
+  setTimeout(ensureButtons,1200);
 
-  const cartKey = "nandini-gift-cart-v1";
-  let cart = {};
-  try {
-    const saved = JSON.parse(localStorage.getItem(cartKey) || "{}");
-    for (const product of ALL_PRODUCTS) {
-      const quantity = Number(saved[product.id]);
-      if (Number.isInteger(quantity) && quantity > 0 && quantity < 100) cart[product.id] = quantity;
-    }
-  } catch { /* Ignore damaged browser storage and start with an empty cart. */ }
+  const cartKey="nandini-gift-cart-v1";
+  let cart={};
+  try { cart=JSON.parse(localStorage.getItem(cartKey)||"{}"); } catch { cart={}; }
+  const save=()=>{try{localStorage.setItem(cartKey,JSON.stringify(cart));}catch{}};
+  const selected=()=>ALL_PRODUCTS.filter(p=>cart[p.id]>0);
 
-  const cartButton = document.createElement("button");
-  cartButton.className = "diwali-cart-button";
-  cartButton.type = "button";
-  cartButton.setAttribute("aria-expanded", "false");
-  cartButton.setAttribute("aria-label", "Open shopping cart");
-  cartButton.innerHTML = '🛒 <span>Cart</span> <b class="diwali-cart-count">0</b>';
+  const cartButton=document.createElement("button");
+  cartButton.type="button"; cartButton.className="diwali-cart-button";
+  cartButton.innerHTML='🛒 <span>Cart</span> <b class="diwali-cart-count">0</b>';
   document.body.append(cartButton);
 
-  const dialog = document.createElement("dialog");
-  dialog.className = "diwali-cart-dialog";
-  dialog.setAttribute("aria-labelledby", "diwali-cart-title");
-  dialog.innerHTML = '<div class="diwali-cart-head"><div><p class="diwali-eyebrow">NANDINI GIFT COLLECTION</p><h2 id="diwali-cart-title">Your Shopping Cart</h2></div><button class="diwali-cart-close" type="button" aria-label="Close cart">×</button></div><div class="diwali-cart-items"></div><p class="diwali-cart-empty">Your cart is empty. Add products to get started.</p><div class="diwali-cart-summary"><p class="diwali-cart-total">Subtotal: ₹0</p><label class="diwali-pin-label" for="diwali-pin-code">Delivery PIN code (India)</label><input class="diwali-pin-code" id="diwali-pin-code" inputmode="numeric" autocomplete="postal-code" maxlength="6" placeholder="6-digit PIN code"><small class="diwali-payment-note">Online payment covers product prices only. Delivery charges are extra and will be confirmed separately on WhatsApp. Products with “starting from” prices need a quote before payment.</small><p class="diwali-payment-status" role="status" aria-live="polite"></p><button class="diwali-pay-button" type="button" disabled>Pay with Razorpay</button><button class="diwali-checkout" type="button" disabled>Order on WhatsApp</button></div>';
+  const dialog=document.createElement("dialog");
+  dialog.className="diwali-cart-dialog";
+  dialog.innerHTML='<div class="diwali-cart-head"><div><p class="diwali-eyebrow">NANDINI GIFT COLLECTION</p><h2>Your Shopping Cart</h2></div><button class="diwali-cart-close" type="button" aria-label="Close cart">×</button></div><div class="diwali-cart-items"></div><p class="diwali-cart-empty">Your cart is empty. Add products to get started.</p><div class="diwali-cart-summary"><p class="diwali-cart-total">Subtotal: ₹0</p><label class="diwali-pin-label" for="diwali-pin-code">Delivery PIN code (India)</label><input class="diwali-pin-code" id="diwali-pin-code" inputmode="numeric" maxlength="6" placeholder="6-digit PIN code"><small class="diwali-payment-note">Online payment covers fixed product prices only. Delivery charges are confirmed separately. “Starting from” products need a quote before payment.</small><p class="diwali-payment-status" role="status" aria-live="polite"></p><button class="diwali-pay-button" type="button" disabled>Pay with Razorpay</button><button class="diwali-checkout" type="button" disabled>Order on WhatsApp</button></div>';
   document.body.append(dialog);
+  const list=dialog.querySelector(".diwali-cart-items"), empty=dialog.querySelector(".diwali-cart-empty"), total=dialog.querySelector(".diwali-cart-total"), count=cartButton.querySelector(".diwali-cart-count"), wa=dialog.querySelector(".diwali-checkout"), pay=dialog.querySelector(".diwali-pay-button"), pin=dialog.querySelector(".diwali-pin-code"), status=dialog.querySelector(".diwali-payment-status");
+  let paymentConfig={enabled:false,keyId:null};
 
-  const list = dialog.querySelector(".diwali-cart-items");
-  const empty = dialog.querySelector(".diwali-cart-empty");
-  const totalElement = dialog.querySelector(".diwali-cart-total");
-  const whatsAppButton = dialog.querySelector(".diwali-checkout");
-  const payButton = dialog.querySelector(".diwali-pay-button");
-  const pinCodeInput = dialog.querySelector(".diwali-pin-code");
-  const status = dialog.querySelector(".diwali-payment-status");
-  const count = cartButton.querySelector(".diwali-cart-count");
-  let paymentConfig = { enabled: false, keyId: null };
-
-  function save() {
-    try { localStorage.setItem(cartKey, JSON.stringify(cart)); } catch { /* Cart remains usable for this visit. */ }
-  }
-
-  function selectedProducts() {
-    return ALL_PRODUCTS.filter((product) => cart[product.id]);
-  }
-
-  function cartHasFixedPricesOnly() {
-    const selected = selectedProducts();
-    return selected.length > 0 && selected.every((product) => product.fixedPrice);
-  }
-
-  function render() {
-    list.replaceChildren();
-    let subtotal = 0;
-    let itemCount = 0;
-    for (const product of ALL_PRODUCTS) {
-      const quantity = cart[product.id] || 0;
-      if (!quantity) continue;
-      itemCount += quantity;
-      subtotal += quantity * product.price;
-      const row = document.createElement("article");
-      row.className = "diwali-cart-row";
-      const image = document.createElement("img");
-      image.src = product.image;
-      image.alt = "";
-      image.width = 58;
-      image.height = 58;
-      const info = document.createElement("div");
-      info.className = "diwali-cart-row-info";
-      const title = document.createElement("strong");
-      title.textContent = product.name;
-      const price = document.createElement("span");
-      price.textContent = `₹${product.price} ${product.unit}`;
-      info.append(title, price);
-      const controls = document.createElement("div");
-      controls.className = "diwali-cart-controls";
-      for (const [label, action, symbol] of [[`Decrease ${product.name}`, "minus", "−"], [`Increase ${product.name}`, "plus", "+"]]) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.dataset.action = action;
-        button.dataset.id = product.id;
-        button.setAttribute("aria-label", label);
-        button.textContent = symbol;
-        controls.append(button);
-      }
-      const quantityNode = document.createElement("span");
-      quantityNode.textContent = String(quantity);
-      const remove = document.createElement("button");
-      remove.type = "button";
-      remove.dataset.action = "remove";
-      remove.dataset.id = product.id;
-      remove.textContent = "Remove";
-      remove.setAttribute("aria-label", `Remove ${product.name}`);
-      controls.append(quantityNode, remove);
-      row.append(image, info, controls);
+  function render(){
+    list.replaceChildren(); let subtotal=0,itemCount=0;
+    selected().forEach(p=>{
+      const q=Number(cart[p.id])||0; subtotal+=p.price*q; itemCount+=q;
+      const row=document.createElement("article"); row.className="diwali-cart-row";
+      row.innerHTML=`<img src="${p.image}" alt="" width="58" height="58"><div class="diwali-cart-row-info"><strong>${p.name}</strong><span>₹${p.price} ${p.unit}</span></div><div class="diwali-cart-controls"><button type="button" data-action="minus" data-id="${p.id}">−</button><span>${q}</span><button type="button" data-action="plus" data-id="${p.id}">+</button><button type="button" data-action="remove" data-id="${p.id}">Remove</button></div>`;
       list.append(row);
-    }
-
-    count.textContent = String(itemCount);
-    cartButton.setAttribute("aria-label", `Open cart, ${itemCount} items`);
-    empty.hidden = itemCount > 0;
-    totalElement.textContent = `Subtotal: ₹${subtotal}`;
-    whatsAppButton.disabled = itemCount === 0;
-    payButton.disabled = itemCount === 0 || !paymentConfig.enabled || !cartHasFixedPricesOnly();
-    save();
-  }
-
-  async function loadPaymentConfig() {
-    if (!PAYMENT_API_BASE) {
-      status.textContent = "Online payment is not activated yet. Please order on WhatsApp.";
-      return;
-    }
-    try {
-      const response = await fetch(`${PAYMENT_API_BASE}/api/config`, { headers: { accept: "application/json" } });
-      paymentConfig = await response.json();
-      status.textContent = paymentConfig.enabled ? "Delivery will be charged separately after confirmation on WhatsApp." : "Online payment is not activated yet. Please order on WhatsApp.";
-    } catch {
-      status.textContent = "Online payment is temporarily unavailable. Please order on WhatsApp.";
-    }
-    render();
-  }
-
-  function loadRazorpayCheckout() {
-    return new Promise((resolve, reject) => {
-      if (window.Razorpay) return resolve();
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = resolve;
-      script.onerror = () => reject(new Error("Secure checkout could not load. Please try again."));
-      document.head.append(script);
     });
+    count.textContent=String(itemCount); empty.hidden=itemCount>0; total.textContent=`Subtotal: ₹${subtotal}`; wa.disabled=itemCount===0;
+    const fixed=selected().length>0&&selected().every(p=>p.fixedPrice);
+    pay.disabled=itemCount===0||!paymentConfig.enabled||!fixed; save(); ensureButtons();
   }
 
-  async function payWithRazorpay() {
-    const selected = selectedProducts();
-    if (!paymentConfig.enabled || !cartHasFixedPricesOnly()) return;
-    const pinCode = pinCodeInput.value.trim();
-    if (!/^\d{6}$/.test(pinCode)) {
-      status.textContent = "Enter a valid 6-digit delivery PIN code before paying.";
-      pinCodeInput.focus();
-      return;
-    }
-    payButton.disabled = true;
-    status.textContent = "Preparing secure checkout…";
-    try {
-      const items = selected.map((product) => ({ id: product.id, quantity: cart[product.id] }));
-      const orderResponse = await fetch(`${PAYMENT_API_BASE}/api/razorpay/order`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ items, pinCode }),
-      });
-      const order = await orderResponse.json();
-      if (!orderResponse.ok) throw new Error(order.error || "Could not start payment. Please order on WhatsApp.");
-      await loadRazorpayCheckout();
-      const checkout = new window.Razorpay({
-        key: order.keyId,
-        order_id: order.orderId,
-        amount: order.amount,
-        currency: order.currency,
-        name: "Nandini Gift Collection",
-        description: "Diwali decorative products (delivery extra)",
-        image: "https://nandinigift.in/shop-12.jpg",
-        notes: { delivery_pin_code: pinCode },
-        theme: { color: "#a3225d" },
-        handler: async (result) => {
-          status.textContent = "Verifying payment securely…";
-          try {
-            const verifyResponse = await fetch(`${PAYMENT_API_BASE}/api/razorpay/verify`, {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify({
-                orderId: result.razorpay_order_id,
-                paymentId: result.razorpay_payment_id,
-                signature: result.razorpay_signature,
-                items,
-              }),
-            });
-            const verification = await verifyResponse.json();
-            if (!verificationResponseOk(verifyResponse, verification)) throw new Error(verification.error || "Payment could not be verified. Please contact the shop before paying again.");
-            cart = {};
-            save();
-            render();
-            status.textContent = "Payment captured. Please message the shop on WhatsApp with your payment ID to confirm delivery charges and address.";
-          } catch (error) {
-            status.textContent = error.message;
-          }
-        },
-        modal: { ondismiss: () => { status.textContent = "Payment window closed. Your cart is saved."; render(); } },
-      });
-      checkout.on("payment.failed", (event) => {
-        status.textContent = event?.error?.description || "Payment failed. Your cart is saved; you can retry or order on WhatsApp.";
-        render();
-      });
-      checkout.open();
-      status.textContent = "";
-    } catch (error) {
-      status.textContent = error.message;
-    } finally {
-      render();
-    }
-  }
-
-  function verificationResponseOk(response, result) {
-    return response.ok && result?.verified === true;
-  }
-
-  cartButton.addEventListener("click", () => {
-    dialog.showModal();
-    cartButton.setAttribute("aria-expanded", "true");
-  });
-  dialog.querySelector(".diwali-cart-close").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("close", () => cartButton.setAttribute("aria-expanded", "false"));
-  payButton.addEventListener("click", payWithRazorpay);
-  pinCodeInput.addEventListener("input", () => { pinCodeInput.value = pinCodeInput.value.replace(/\D/g, "").slice(0, 6); });
-
-  document.addEventListener("click", (event) => {
-    const addButton = event.target.closest(".diwali-add");
-    if (addButton) {
-      const product = ALL_PRODUCTS.find((item) => item.id === addButton.dataset.productId);
-      if (!product) return;
-      cart[product.id] = (cart[product.id] || 0) + 1;
-      render();
-      addButton.textContent = "Added ✓";
-      setTimeout(() => { if (addButton.isConnected) addButton.textContent = "Add to Cart"; }, 1000);
-      return;
-    }
-    const control = event.target.closest("[data-action]");
-    if (!control) return;
-    const id = control.dataset.id;
-    if (control.dataset.action === "plus") cart[id] = (cart[id] || 0) + 1;
-    else if (control.dataset.action === "minus") {
-      cart[id] = (cart[id] || 0) - 1;
-      if (cart[id] <= 0) delete cart[id];
-    } else delete cart[id];
+  async function loadConfig(){
+    try { const r=await fetch(`${PAYMENT_API_BASE}/api/config`); paymentConfig=await r.json(); status.textContent=paymentConfig.enabled?"Secure online payment is available for fixed-price products.":"Online payment is not activated. Please order on WhatsApp."; }
+    catch { status.textContent="Online payment is temporarily unavailable. Please order on WhatsApp."; }
     render();
-  });
+  }
+  function loadRazorpay(){return new Promise((resolve,reject)=>{if(window.Razorpay)return resolve();const s=document.createElement("script");s.src="https://checkout.razorpay.com/v1/checkout.js";s.onload=resolve;s.onerror=reject;document.head.append(s);});}
+  async function payNow(){
+    const items=selected(); if(!items.length||items.some(p=>!p.fixedPrice)||!paymentConfig.enabled)return;
+    if(!/^\d{6}$/.test(pin.value.trim())){status.textContent="Enter a valid 6-digit delivery PIN code.";pin.focus();return;}
+    try{
+      pay.disabled=true; status.textContent="Preparing secure checkout…";
+      const payload=items.map(p=>({id:p.id,quantity:cart[p.id]}));
+      const r=await fetch(`${PAYMENT_API_BASE}/api/razorpay/order`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({items:payload,pinCode:pin.value.trim()})});
+      const order=await r.json(); if(!r.ok)throw new Error(order.error||"Could not start payment."); await loadRazorpay();
+      const checkout=new Razorpay({key:order.keyId,order_id:order.orderId,amount:order.amount,currency:order.currency,name:"Nandini Gift Collection",description:"Gift order (delivery extra)",handler:async result=>{
+        status.textContent="Verifying payment…";
+        const vr=await fetch(`${PAYMENT_API_BASE}/api/razorpay/verify`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({orderId:result.razorpay_order_id,paymentId:result.razorpay_payment_id,signature:result.razorpay_signature,items:payload})});
+        const v=await vr.json(); if(vr.ok&&v.verified){cart={};render();status.textContent="Payment captured. Please confirm delivery details on WhatsApp.";}else status.textContent=v.error||"Payment verification failed. Please contact the shop.";
+      }}); checkout.open();
+    }catch(e){status.textContent=e.message||"Payment unavailable. Please order on WhatsApp.";}finally{render();}
+  }
 
-  whatsAppButton.addEventListener("click", () => {
-    const lines = selectedProducts().map((product) => `${product.name} × ${cart[product.id]} = ₹${product.price * cart[product.id]}`);
-    const subtotal = selectedProducts().reduce((sum, product) => sum + product.price * cart[product.id], 0);
-    const message = `Hello Nandini Gift Collection, I would like to order these items:\n${lines.join("\n")}\nSubtotal: ₹${subtotal}\nPlease confirm stock, delivery charges and delivery time. My PIN code is: ${pinCodeInput.value.trim()}`;
-    window.open(`https://wa.me/918266814556?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+  document.addEventListener("click",e=>{
+    const add=e.target.closest(".diwali-add");
+    if(add){const p=byId.get(add.dataset.productId);if(!p)return;cart[p.id]=(Number(cart[p.id])||0)+1;render();add.textContent="Added ✓";setTimeout(()=>{if(add.isConnected)add.textContent="Add to Cart";},900);return;}
+    const c=e.target.closest("[data-action]"); if(!c)return; const id=c.dataset.id;
+    if(c.dataset.action==="plus")cart[id]=(Number(cart[id])||0)+1; else if(c.dataset.action==="minus"){cart[id]=(Number(cart[id])||0)-1;if(cart[id]<=0)delete cart[id];} else delete cart[id]; render();
   });
-
-  render();
-  loadPaymentConfig();
+  cartButton.addEventListener("click",()=>dialog.showModal());
+  dialog.querySelector(".diwali-cart-close").addEventListener("click",()=>dialog.close());
+  pin.addEventListener("input",()=>pin.value=pin.value.replace(/\D/g,"").slice(0,6));
+  pay.addEventListener("click",payNow);
+  wa.addEventListener("click",()=>{
+    const lines=selected().map(p=>`${p.name} × ${cart[p.id]} = ₹${p.price*cart[p.id]}`);
+    const subtotal=selected().reduce((s,p)=>s+p.price*cart[p.id],0);
+    const text=`Hello Nandini Gift Collection, I want to order:\n\n${lines.join("\n")}\n\nSubtotal: ₹${subtotal}\nDelivery PIN: ${pin.value.trim()||"Not entered"}\nPlease confirm availability and delivery charges.`;
+    window.open(`https://wa.me/918266814556?text=${encodeURIComponent(text)}`,"_blank","noopener");
+  });
+  render(); loadConfig();
 })();
