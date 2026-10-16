@@ -1,5 +1,5 @@
 (() => {
-  const PAYMENT_API_BASE = "https://nandini-gift-collection-1.onrender.com";
+  const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
     ["mala-orange-yellow","Decorative Mala Pack — Orange & Yellow",149,"Pack of 5 pieces","images/diwali/mala-orange-yellow.webp"],
     ["mala-orange-white","Decorative Mala Pack — Orange & White",149,"Pack of 5 pieces","images/diwali/mala-orange-white.webp"],
