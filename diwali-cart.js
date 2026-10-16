@@ -15,6 +15,15 @@
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
   document.querySelectorAll(".existing-product-add").forEach(b=>b.remove());
+  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"]').forEach(button=>{
+    button.style.setProperty("display","block","important");
+    button.style.setProperty("visibility","visible","important");
+    button.style.setProperty("opacity","1","important");
+    button.style.setProperty("width","100%","important");
+    button.style.setProperty("min-height","46px","important");
+    button.style.setProperty("position","relative","important");
+    button.style.setProperty("z-index","30","important");
+  });
   const cartKey="nandini-fixed-cart-v1"; let cart={};
   try{cart=JSON.parse(localStorage.getItem(cartKey)||"{}");}catch{cart={};}
   const selected=()=>PRODUCTS.filter(p=>(Number(cart[p.id])||0)>0);
