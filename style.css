@@ -22,3 +22,39 @@
 .diwali-field-label{display:block;margin:9px 0 4px;color:#512039;font-size:.88rem;font-weight:800}.diwali-customer-field{display:block;width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #d8b6c6;border-radius:10px;background:#fff;font:inherit;color:#351329}.diwali-customer-address{resize:vertical;min-height:78px;line-height:1.4}.diwali-customer-field::placeholder{color:#967b89}.diwali-cart-summary .diwali-payment-note{margin-top:8px!important}.diwali-cart-summary .diwali-payment-status{margin:7px 0}
 
 .diwali-cart-summary[hidden],.diwali-cart-items[hidden],.diwali-cart-empty[hidden],.diwali-checkout-step[hidden],.diwali-proceed-checkout[hidden]{display:none!important}.diwali-proceed-checkout{width:100%;margin-top:12px;padding:14px;background:linear-gradient(130deg,#8e205d,#c92768);color:#fff;border:0;border-radius:999px;font-weight:900;font-size:1rem;cursor:pointer}.diwali-checkout-step{flex:1 1 auto;min-height:0;overflow-y:auto;padding:4px 2px 12px}.diwali-checkout-kicker{margin:6px 0;color:#9b6e22;font-size:.75rem;font-weight:900;letter-spacing:.12em}.diwali-checkout-total{margin:2px 0 8px;color:#731c4b;font-weight:900;font-size:1.1rem}.diwali-back-to-cart{margin:4px 0 7px;padding:8px 12px;border:1px solid #d8b6c6;border-radius:999px;background:#fff;color:#731c4b;font-weight:800;cursor:pointer}.diwali-checkout-step .diwali-pay-button{margin-top:14px}.diwali-checkout-step .diwali-checkout{margin-top:9px}
+
+/* Mobile navigation, touch targets, and checkout comfort */
+@media(max-width:760px){
+  .nav{gap:8px 12px;padding:11px 14px}
+  .brand{font-size:1rem}
+  .nav .links{display:flex;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:6px;width:100%;padding:2px 1px 6px}
+  .nav .links::-webkit-scrollbar{display:none}
+  .nav .links a{display:inline-flex;flex:0 0 auto;align-items:center;min-height:44px;padding:8px 11px}
+  .nav>.wa{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-left:auto;padding:9px 13px}
+  .diwali-cart-button{min-height:48px;left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom))}
+  .diwali-cart-dialog{padding: max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}
+  .diwali-customer-field{min-height:46px;font-size:16px}
+  .diwali-add,.diwali-checkout,.diwali-proceed-checkout,.diwali-pay-button{min-height:46px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:clamp(2rem,9vw,2.8rem);line-height:1.12}
+  .section h2{font-size:clamp(1.55rem,7vw,1.9rem);line-height:1.2}
+  .section{margin:14px 8px;padding:30px 12px}
+  .price-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .price-box{padding:14px 9px}
+  .price-box strong{font-size:1.15rem}
+  .shop-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .shop-gallery img{height:170px}
+  .shop-gallery figcaption{padding:12px 10px;font-size:.88rem}
+  .diwali-banner{padding:14px 10px}
+  .diwali-banner span{display:block;line-height:1.45;margin-top:4px}
+  .diwali-cart-row{grid-template-columns:44px minmax(0,1fr) auto}
+  .diwali-cart-row>img{width:44px;height:44px}
+}
+@media(max-width:360px){
+  .brand{font-size:.92rem}
+  .nav{padding-inline:10px}
+  .nav>.wa{padding-inline:10px;font-size:.9rem}
+  .hero{padding-inline:12px}
+  .section{padding-inline:10px}
+}
