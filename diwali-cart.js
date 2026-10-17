@@ -12,11 +12,12 @@
     ["multicolor-gerbera-bunch","Artificial Flower Bunch — Gerbera",129,"Each","images/diwali/multicolor-gerbera-bunch.webp"],
     ["multicolor-flower-bunch","Artificial Flower Bunch — Mixed Flowers",129,"Each","images/diwali/multicolor-flower-bunch.webp"],
     ["dancing-duck","Cute Dancing Duck Toy (Ages 1–3)",599,"Each","images/dancing-duck.webp"],
+    ["walking-dog-puppy","Walking Cute Dog Puppy",399,"Each","images/walking-dog-puppy.webp"],
     ["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy.jpg"]
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
   document.querySelectorAll(".existing-product-add").forEach(b=>b.remove());
-  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"],.diwali-add[data-product-id="dancing-duck"]').forEach(button=>{
+  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"],.diwali-add[data-product-id="dancing-duck"],.diwali-add[data-product-id="walking-dog-puppy"]').forEach(button=>{
     button.style.setProperty("display","block","important");
     button.style.setProperty("visibility","visible","important");
     button.style.setProperty("opacity","1","important");
