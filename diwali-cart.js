@@ -11,6 +11,7 @@
     ["handmade-bandhanwar","Bandhanwar — Traditional Style",199,"Each","images/diwali/handmade-bandhanwar.webp"],
     ["multicolor-gerbera-bunch","Artificial Flower Bunch — Gerbera",129,"Each","images/diwali/multicolor-gerbera-bunch.webp"],
     ["multicolor-flower-bunch","Artificial Flower Bunch — Mixed Flowers",129,"Each","images/diwali/multicolor-flower-bunch.webp"],
+    ["glitter-grey-white-flower-mala-pack-of-6","Glitter Grey white Flower mala pack of 6",599,"Pack of 6 pieces","images/diwali/glitter-grey-white-flower-mala-1.webp"],
     ["dancing-duck","Cute Dancing Duck Toy (Ages 1–3)",599,"Each","images/dancing-duck.webp"],
     ["walking-dog-puppy","Walking Cute Dog Puppy",399,"Each","images/walking-dog-puppy.webp"],
     ["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy.jpg"],
