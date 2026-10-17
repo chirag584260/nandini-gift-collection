@@ -173,13 +173,20 @@ export const server = createServer(async (req, res) => {
         razorpay(`/orders/${encodeURIComponent(orderId)}`),
         razorpay(`/payments/${encodeURIComponent(paymentId)}`),
       ]);
-      if (payment.order_id !== orderId || order.amount !== amount * 100 || payment.amount !== order.amount || payment.currency !== "INR") {
+      const storedItems = typeof order.notes?.product_items === "string"
+        ? order.notes.product_items.split(",").filter(Boolean).map((entry) => {
+          const [id, quantity] = entry.split(":");
+          return { id, quantity: Number(quantity) };
+        })
+        : [];
+      const { lines: orderLines, amount: orderAmount } = priceCart(storedItems);
+      if (payment.order_id !== orderId || orderAmount !== amount || order.amount !== orderAmount * 100 || payment.amount !== order.amount || payment.currency !== "INR") {
         return send(res, 400, { verified: false, error: "Payment details do not match this cart." });
       }
       if (payment.status !== "captured") {
         return send(res, 202, { verified: false, pending: true, error: "Payment is authorised and awaiting capture. Please contact the shop before retrying." });
       }
-      const whatsappNotificationSent = await sendWhatsAppOrderNotification(order, payment, priceCart(items).lines);
+      const whatsappNotificationSent = await sendWhatsAppOrderNotification(order, payment, orderLines);
       return send(res, 200, { verified: true, paymentId: payment.id, status: payment.status, whatsappNotificationSent });
     } catch (error) {
       return send(res, error.message.includes("Cart") || error.message.includes("Choose") ? 400 : 502, { verified: false, error: error.message });
