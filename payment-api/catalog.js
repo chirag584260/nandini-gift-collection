@@ -39,7 +39,7 @@ export function priceCart(items) {
 
 export function validateDeliveryDetails(customer, pinValue) {
   const name = typeof customer?.name === "string" ? customer.name.trim() : "";
-  const mobile = typeof customer?.mobile === "string" ? customer.mobile.replace(/\\D/g, "") : "";
+  const mobile = typeof customer?.mobile === "string" ? customer.mobile.replace(/\D/g, "") : "";
   const address = typeof customer?.address === "string" ? customer.address.trim() : "";
   const pinCode = typeof pinValue === "string" ? pinValue.trim() : "";
 
@@ -52,13 +52,13 @@ export function validateDeliveryDetails(customer, pinValue) {
   if (name.length < 2 || name.length > 100) {
     throw invalid("Enter the customer’s name (2–100 characters).");
   }
-  if (!/^[6-9]\\d{9}$/.test(mobile)) {
+  if (!/^[6-9]\d{9}$/.test(mobile)) {
     throw invalid("Enter a valid 10-digit Indian mobile number.");
   }
   if (address.length < 8 || address.length > 240) {
     throw invalid("Enter a complete delivery address (8–240 characters).");
   }
-  if (!/^\\d{6}$/.test(pinCode)) {
+  if (!/^\d{6}$/.test(pinCode)) {
     throw invalid("Enter a valid 6-digit delivery PIN code.");
   }
 
