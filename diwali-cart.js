@@ -13,7 +13,8 @@
     ["multicolor-flower-bunch","Artificial Flower Bunch — Mixed Flowers",129,"Each","images/diwali/multicolor-flower-bunch.webp"],
     ["dancing-duck","Cute Dancing Duck Toy (Ages 1–3)",599,"Each","images/dancing-duck.webp"],
     ["walking-dog-puppy","Walking Cute Dog Puppy",399,"Each","images/walking-dog-puppy.webp"],
-    ["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy.jpg"]
+    ["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy.jpg"],
+    ["buddha-hands-on-pose-statue","Buddha Hands-on pose Statue",799,"Each","images/buddha-hands-on-pose-statue-1.webp"]
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
   document.querySelectorAll(".existing-product-add").forEach(b=>b.remove());

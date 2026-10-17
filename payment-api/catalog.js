@@ -2,6 +2,7 @@ export const CATALOG = Object.freeze({
   "elephant-toy": { name: "Battery-Operated Elephant Toy", price: 399 },
   "dancing-duck": { name: "Cute Dancing Duck Toy (Ages 1–3)", price: 599 },
   "walking-dog-puppy": { name: "Walking Cute Dog Puppy", price: 399 },
+  "buddha-hands-on-pose-statue": { name: "Buddha Hands-on pose Statue", price: 799 },
   "mala-orange-yellow": { name: "Decorative Mala Pack — Orange & Yellow", price: 149 },
   "mala-orange-white": { name: "Decorative Mala Pack — Orange & White", price: 149 },
   "flower-jhoomar-marigold": { name: "Flower Jhoomar — Marigold", price: 199 },
