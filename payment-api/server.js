@@ -22,18 +22,16 @@ async function sendWhatsAppOrderNotification(order, payment, lines) {
   if (whatsappNotificationsSent.has(payment.id)) return true;
   const notes = order.notes || {};
   const productLines = lines.map((line) => `• ${line.name} × ${line.quantity} = ₹${line.unitPrice * line.quantity}`).join("\n");
-  const message = [
-    "New paid website order",
-    `Order: ${order.id}`,
-    `Payment: ${payment.id}`,
-    `Amount paid: ₹${(payment.amount / 100).toFixed(2)}`,
-    "Items:",
+  const templateParameters = [
+    order.id,
+    payment.id,
+    `₹${(payment.amount / 100).toFixed(2)}`,
     productLines,
-    `Customer: ${notes.customer_name || "Not provided"}`,
-    `Mobile: ${notes.customer_mobile || "Not provided"}`,
-    `Address: ${notes.delivery_address || "Not provided"}`,
-    `PIN: ${notes.delivery_pin_code || "Not provided"}`,
-  ].join("\n");
+    notes.customer_name || "Not provided",
+    notes.customer_mobile || "Not provided",
+    notes.delivery_address || "Not provided",
+    notes.delivery_pin_code || "Not provided",
+  ].map((text) => ({ type: "text", text: String(text) }));
   try {
     const response = await fetch(`https://graph.facebook.com/${encodeURIComponent(WHATSAPP_GRAPH_API_VERSION)}/${encodeURIComponent(WHATSAPP_PHONE_NUMBER_ID)}/messages`, {
       method: "POST",
@@ -49,7 +47,7 @@ async function sendWhatsAppOrderNotification(order, payment, lines) {
         template: {
           name: WHATSAPP_TEMPLATE_NAME,
           language: { code: WHATSAPP_TEMPLATE_LANGUAGE },
-          components: [{ type: "body", parameters: [{ type: "text", text: message }] }],
+          components: [{ type: "body", parameters: templateParameters }],
         },
       }),
       signal: AbortSignal.timeout(8_000),
