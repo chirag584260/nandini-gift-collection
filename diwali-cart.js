@@ -16,7 +16,7 @@
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
   document.querySelectorAll(".existing-product-add").forEach(b=>b.remove());
-  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"]').forEach(button=>{
+  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"],.diwali-add[data-product-id="dancing-duck"]').forEach(button=>{
     button.style.setProperty("display","block","important");
     button.style.setProperty("visibility","visible","important");
     button.style.setProperty("opacity","1","important");
