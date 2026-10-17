@@ -11,6 +11,7 @@
     ["handmade-bandhanwar","Bandhanwar — Traditional Style",199,"Each","images/diwali/handmade-bandhanwar.webp"],
     ["multicolor-gerbera-bunch","Artificial Flower Bunch — Gerbera",129,"Each","images/diwali/multicolor-gerbera-bunch.webp"],
     ["multicolor-flower-bunch","Artificial Flower Bunch — Mixed Flowers",129,"Each","images/diwali/multicolor-flower-bunch.webp"],
+    ["dancing-duck","Cute Dancing Duck Toy (Ages 1–3)",599,"Each","images/dancing-duck.webp"],
     ["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy.jpg"]
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
