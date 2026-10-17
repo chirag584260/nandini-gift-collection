@@ -17,6 +17,10 @@ test("prices the walking puppy at its fixed listed price", () => {
   assert.equal(priceCart([{ id: "walking-dog-puppy", quantity: 1 }]).amount, 399);
 });
 
+test("prices the dark pink cloth mala pack at its fixed listed price", () => {
+  assert.equal(priceCart([{ id: "dark-pink-cloth-mala-pack-of-6", quantity: 1 }]).amount, 699);
+});
+
 test("prices the Buddha Hands-on pose Statue at its fixed listed price", () => {
   assert.equal(priceCart([{ id: "buddha-hands-on-pose-statue", quantity: 1 }]).amount, 799);
 });

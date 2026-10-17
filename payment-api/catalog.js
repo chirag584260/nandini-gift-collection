@@ -21,6 +21,7 @@ export const CATALOG = Object.freeze({
   "multicolor-gerbera-bunch": { name: "Artificial Flower Bunch — Gerbera", price: 129 },
   "multicolor-flower-bunch": { name: "Artificial Flower Bunch — Mixed Flowers", price: 129 },
   "glitter-grey-white-flower-mala-pack-of-6": { name: "Glitter Grey white Flower mala pack of 6", price: 599 },
+  "dark-pink-cloth-mala-pack-of-6": { name: "Dark Pink cloth mala pack of 6", price: 699 },
 });
 
 export function priceCart(items) {
