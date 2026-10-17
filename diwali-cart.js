@@ -18,16 +18,11 @@
     ["ram-lala-statue","Ram Lala Statue",899,"Each","images/ram-lala-statue.jpg"]
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
+  const visibilityFix=document.createElement("style");
+  visibilityFix.textContent='.diwali-cart-dialog:not([open]){display:none!important}.diwali-cart-button[hidden]{display:none!important}';
+  document.head.append(visibilityFix);
   document.querySelectorAll(".existing-product-add").forEach(b=>b.remove());
-  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"],.diwali-add[data-product-id="dancing-duck"],.diwali-add[data-product-id="walking-dog-puppy"]').forEach(button=>{
-    button.style.setProperty("display","block","important");
-    button.style.setProperty("visibility","visible","important");
-    button.style.setProperty("opacity","1","important");
-    button.style.setProperty("width","100%","important");
-    button.style.setProperty("min-height","46px","important");
-    button.style.setProperty("position","relative","important");
-    button.style.setProperty("z-index","30","important");
-  });
+  document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"],.diwali-add[data-product-id="dancing-duck"],.diwali-add[data-product-id="walking-dog-puppy"]').forEach(button=>{button.style.setProperty("display","block","important");button.style.setProperty("visibility","visible","important");button.style.setProperty("opacity","1","important");button.style.setProperty("width","100%","important");button.style.setProperty("min-height","46px","important");button.style.setProperty("position","relative","important");button.style.setProperty("z-index","30","important");});
   const cartKey="nandini-fixed-cart-v1"; let cart={};
   try{cart=JSON.parse(localStorage.getItem(cartKey)||"{}");}catch{cart={};}
   const selected=()=>PRODUCTS.filter(p=>(Number(cart[p.id])||0)>0);
