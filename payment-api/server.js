@@ -78,7 +78,14 @@ export const server = createServer(async (req, res) => {
       const body = await readJson(req);
       const { lines, amount } = priceCart(body.items);
       const pinCode = typeof body.pinCode === "string" ? body.pinCode.replace(/\D/g, "").slice(0, 6) : "";
-      if (pinCode && !/^\d{6}$/.test(pinCode)) return send(res, 400, { error: "Enter a valid 6-digit delivery PIN code." });
+      const customer = body.deliveryDetails && typeof body.deliveryDetails === "object" ? body.deliveryDetails : {};
+      const customerName = typeof customer.name === "string" ? customer.name.trim().slice(0, 80) : "";
+      const customerMobile = typeof customer.mobile === "string" ? customer.mobile.replace(/\D/g, "").slice(0, 10) : "";
+      const deliveryAddress = typeof customer.address === "string" ? customer.address.trim().slice(0, 256) : "";
+      if (!/^\d{6}$/.test(pinCode)) return send(res, 400, { error: "Enter a valid 6-digit delivery PIN code." });
+      if (!customerName) return send(res, 400, { error: "Enter the customer name." });
+      if (!/^[6-9]\d{9}$/.test(customerMobile)) return send(res, 400, { error: "Enter a valid 10-digit Indian mobile number." });
+      if (deliveryAddress.length < 10) return send(res, 400, { error: "Enter the complete delivery address." });
       const order = await razorpay("/orders", {
         method: "POST",
         body: JSON.stringify({
@@ -87,7 +94,10 @@ export const server = createServer(async (req, res) => {
           receipt: `ngc_${randomUUID().replaceAll("-", "").slice(0, 24)}`,
           notes: {
             product_items: lines.map(({ id, quantity }) => `${id}:${quantity}`).join(","),
-            delivery_pin_code: pinCode || "not-provided",
+            customer_name: customerName,
+            customer_mobile: customerMobile,
+            delivery_address: deliveryAddress,
+            delivery_pin_code: pinCode,
             delivery_charge: "not-included; confirm separately on WhatsApp",
           },
         }),
