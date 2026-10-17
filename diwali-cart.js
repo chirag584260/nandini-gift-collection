@@ -19,7 +19,7 @@
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
   const visibilityFix=document.createElement("style");
-  visibilityFix.textContent='.diwali-cart-dialog:not([open]){display:none!important}.diwali-cart-button[hidden]{display:none!important}';
+  visibilityFix.textContent='.diwali-cart-dialog:not([open]){display:none!important}.diwali-cart-button[hidden]{display:none!important}#showpieces .diwali-product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#showpieces .diwali-product-image{height:240px}#showpieces .buddha-photo-slider img{height:240px;object-fit:contain}@media(max-width:760px){#showpieces .diwali-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#showpieces .diwali-product-image,#showpieces .buddha-photo-slider img{height:205px}}';
   document.head.append(visibilityFix);
   document.querySelectorAll(".existing-product-add").forEach(b=>b.remove());
   document.querySelectorAll('.diwali-add[data-product-id="elephant-toy"],.diwali-add[data-product-id="dancing-duck"],.diwali-add[data-product-id="walking-dog-puppy"]').forEach(button=>{button.style.setProperty("display","block","important");button.style.setProperty("visibility","visible","important");button.style.setProperty("opacity","1","important");button.style.setProperty("width","100%","important");button.style.setProperty("min-height","46px","important");button.style.setProperty("position","relative","important");button.style.setProperty("z-index","30","important");});
