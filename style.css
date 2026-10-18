@@ -328,3 +328,11 @@ body .ga-choices button{min-height:40px}
   .nav.nav-ready .brand span{font-size:.47rem}
   .nav.nav-ready .nav-menu-toggle{padding-inline:8px}
 }
+
+/* Optional gift enquiry permission in checkout. */
+.diwali-enquiry-option{margin:16px 0;padding:14px;background:#fff7ed;border:1px solid #ead2ad;border-radius:12px}
+.diwali-enquiry-intro{font-weight:700;margin:0 0 10px;line-height:1.5}
+.diwali-enquiry-label{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;line-height:1.5;cursor:pointer}
+.diwali-enquiry-label input[type=checkbox]{appearance:auto;flex:0 0 auto;width:20px;height:20px;min-height:20px;margin:3px 0 0;accent-color:#8d2754}
+.diwali-enquiry-option small{display:block;margin-top:8px;line-height:1.5;color:#685344}
+.diwali-enquiry-status{font-size:.85rem;line-height:1.4;margin:8px 0 0}

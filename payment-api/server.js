@@ -1,10 +1,32 @@
 import { createHmac, timingSafeEqual, randomUUID } from "node:crypto";
 import { createServer } from "node:http";
 import { priceCart } from "./catalog.js";
+import { readFile } from "node:fs/promises";
+import { EnquiryStore, CONSENT_VERSION, secretMatches } from "./enquiry-store.js";
 
 const PORT = Number(process.env.PORT || 10000);
 const KEY_ID = process.env.RAZORPAY_KEY_ID || "";
 const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || "";
+const ENQUIRY_ADMIN_TOKEN = process.env.ENQUIRY_ADMIN_TOKEN || "";
+let enquiryStore = null;
+let enquiriesReady = false;
+if (process.env.ENQUIRY_DATA_DIR && ENQUIRY_ADMIN_TOKEN.length >= 32) {
+  try { enquiryStore = new EnquiryStore(process.env.ENQUIRY_DATA_DIR); await enquiryStore.ready(); enquiriesReady = true; }
+  catch { console.error("Enquiry storage unavailable. Check the persistent disk configuration."); }
+}
+const enquiryLimits = new Map();
+function enquiryRateLimited(req, res) {
+  const key = req.socket.remoteAddress || "unknown";
+  const now = Date.now();
+  for (const [ip, value] of enquiryLimits) if (value.until <= now) enquiryLimits.delete(ip);
+  const value = enquiryLimits.get(key) || { count: 0, until: now + 60_000 };
+  value.count++;
+  enquiryLimits.set(key, value);
+  if (value.count <= 120) return false;
+  res.setHeader("retry-after", "60");
+  send(res, 429, { error: "Please wait a minute and try again." });
+  return true;
+}
 const SITE_ORIGINS = new Set(
   (process.env.SITE_ORIGINS || "https://nandinigift.in,https://www.nandinigift.in")
     .split(",").map((origin) => origin.trim()).filter(Boolean),
@@ -73,11 +95,14 @@ function send(res, status, body) {
 function readJson(req) {
   return new Promise((resolve, reject) => {
     let data = "";
+    let tooLarge = false;
     req.on("data", (chunk) => {
+      if (tooLarge) return;
       data += chunk;
-      if (data.length > 16_384) reject(new Error("Request is too large."));
+      if (Buffer.byteLength(data) > 16_384) { tooLarge = true; data = ""; reject(new Error("Request is too large.")); }
     });
     req.on("end", () => {
+      if (tooLarge) return;
       try { resolve(JSON.parse(data || "{}")); } catch { reject(new Error("Invalid JSON.")); }
     });
     req.on("error", reject);
@@ -116,15 +141,57 @@ export const server = createServer(async (req, res) => {
   if (origin && SITE_ORIGINS.has(origin)) {
     res.setHeader("access-control-allow-origin", origin);
     res.setHeader("vary", "Origin");
-    res.setHeader("access-control-allow-methods", "GET, POST, OPTIONS");
-    res.setHeader("access-control-allow-headers", "content-type");
+    res.setHeader("access-control-allow-methods", "GET, POST, DELETE, OPTIONS");
+    res.setHeader("access-control-allow-headers", "content-type, authorization");
   }
   if (req.method === "OPTIONS") return res.writeHead(204).end();
 
   const url = new URL(req.url, "http://localhost");
   if (req.method === "GET" && url.pathname === "/health") return send(res, 200, { ok: true });
   if (req.method === "GET" && url.pathname === "/api/config") {
-    return send(res, 200, { enabled: Boolean(KEY_ID && KEY_SECRET), keyId: KEY_ID || null });
+    return send(res, 200, { enabled: Boolean(KEY_ID && KEY_SECRET), keyId: KEY_ID || null, enquiriesEnabled: enquiriesReady, consentVersion: CONSENT_VERSION });
+  }
+  if (req.method === "GET" && url.pathname === "/enquiries") {
+    res.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex, nofollow", "x-content-type-options": "nosniff", "referrer-policy": "no-referrer", "content-security-policy": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" });
+    return res.end(await readFile(new URL("./enquiries.html", import.meta.url)));
+  }
+  if (req.method === "GET" && ["/enquiries.js", "/enquiries.css"].includes(url.pathname)) {
+    res.writeHead(200, { "content-type": url.pathname.endsWith(".js") ? "text/javascript; charset=utf-8" : "text/css; charset=utf-8", "cache-control": "no-store", "x-content-type-options": "nosniff" });
+    return res.end(await readFile(new URL(`.${url.pathname}`, import.meta.url)));
+  }
+  if (url.pathname.startsWith("/api/enquiries") || url.pathname.startsWith("/api/admin/enquiries")) {
+    if (!enquiriesReady) return send(res, 503, { error: "Gift enquiries are not available yet." });
+    if (origin && !SITE_ORIGINS.has(origin) && origin !== `https://${req.headers.host}`) return send(res, 403, { error: "Origin not allowed." });
+    if (enquiryRateLimited(req, res)) return;
+    try {
+      if (url.pathname.startsWith("/api/admin/enquiries")) {
+        const supplied = (req.headers.authorization || "").replace(/^Bearer /, "");
+        if (!secretMatches(supplied, ENQUIRY_ADMIN_TOKEN)) return send(res, 401, { error: "Enter the correct owner access password." });
+        if (req.method === "GET" && url.pathname === "/api/admin/enquiries") return send(res, 200, { enquiries: await enquiryStore.list() });
+        const match = url.pathname.match(/^\/api\/admin\/enquiries\/([a-f0-9-]{36})$/);
+        if (req.method === "DELETE" && match) return send(res, 200, { deleted: await enquiryStore.remove(match[1]) });
+      } else if (req.method === "POST" && url.pathname === "/api/enquiries") {
+        const body = await readJson(req);
+        if (body.consent !== true || body.consentVersion !== CONSENT_VERSION) return send(res, 400, { error: "Optional enquiry permission is required." });
+        const name = typeof body.name === "string" ? body.name.trim() : "";
+        const mobile = typeof body.mobile === "string" ? body.mobile.replace(/\D/g, "") : "";
+        if (!name || name.length > 80 || !/^[6-9]\d{9}$/.test(mobile)) return send(res, 400, { error: "Enter your name and a valid Indian mobile number." });
+        const { lines, amount } = priceCart(body.items);
+        return send(res, 201, { saved: true, ...await enquiryStore.create({ name, mobile, lines, amount }) });
+      } else {
+        const match = url.pathname.match(/^\/api\/enquiries\/([a-f0-9-]{36})\/withdraw$/);
+        if (req.method === "POST" && match) {
+          const body = await readJson(req);
+          if (typeof body.token !== "string" || body.token.length !== 64) return send(res, 400, { error: "Invalid enquiry reference." });
+          const withdrawn = await enquiryStore.withdraw(match[1], body.token);
+          return send(res, withdrawn ? 200 : 404, { withdrawn });
+        }
+      }
+      return send(res, 404, { error: "Not found." });
+    } catch (error) {
+      const invalid = /Cart|Choose|JSON|large/.test(error.message);
+      return send(res, invalid ? 400 : 503, { error: invalid ? error.message : "Could not save the enquiry. Please try again." });
+    }
   }
   if (!KEY_ID || !KEY_SECRET) return send(res, 503, { error: "Online payment is not configured yet." });
 
@@ -157,6 +224,10 @@ export const server = createServer(async (req, res) => {
           },
         }),
       });
+      if (enquiriesReady && body.enquiry) {
+        try { await enquiryStore.attach(body.enquiry, order.id, { name: customerName, mobile: customerMobile }); }
+        catch { console.warn("Could not link the consented enquiry to its order."); }
+      }
       return send(res, 200, { orderId: order.id, amount: order.amount, currency: order.currency, keyId: KEY_ID });
     } catch (error) {
       return send(res, error.message.includes("Cart") || error.message.includes("Choose") ? 400 : 502, { error: error.message });
@@ -185,6 +256,10 @@ export const server = createServer(async (req, res) => {
       }
       if (payment.status !== "captured") {
         return send(res, 202, { verified: false, pending: true, error: "Payment is authorised and awaiting capture. Please contact the shop before retrying." });
+      }
+      if (enquiriesReady) {
+        try { await enquiryStore.paid(orderId); }
+        catch { console.warn("Could not update the enquiry payment status."); }
       }
       const whatsappNotificationSent = await sendWhatsAppOrderNotification(order, payment, orderLines);
       return send(res, 200, { verified: true, paymentId: payment.id, status: payment.status, whatsappNotificationSent });
