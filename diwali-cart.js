@@ -1,6 +1,10 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["dancing-cactus-toy", "Dancing Cactus toy", 299, "Each", "images/dancing-cactus-toy-1.webp"],
+    ["building-blocks-for-kids", "Building blocks for Kids", 299, "Each", "images/building-blocks-for-kids-1.webp"],
+    ["laptop-for-kids-play", "Laptop for kids play", 449, "Each", "images/laptop-for-kids-play-1.webp"],
+    ["kids-study-book", "kids Study book", 349, "Each", "images/kids-study-book-1.webp"],
     ["mala-orange-yellow","Decorative Mala Pack of 5 piece — Colours - Orange, Yellow, Green and Red",149,"Pack of 5 pieces","images/diwali/mala-orange-yellow.webp"],
     ["mala-orange-white","Decorative Mala Pack — Orange & White",149,"Pack of 5 pieces","images/diwali/mala-orange-white.webp"],
     ["flower-jhoomar-marigold","Flower Jhoomar — Marigold",199,"Each","images/diwali/flower-jhoomar-marigold.webp"],
