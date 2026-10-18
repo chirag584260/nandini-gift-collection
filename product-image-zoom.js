@@ -46,6 +46,7 @@
   }
 
   document.querySelectorAll(selector).forEach((photo) => {
+    if (photo.closest("[data-category-link]")) return;
     photo.classList.add("product-zoomable");
     photo.tabIndex = 0;
     photo.setAttribute("role", "button");
