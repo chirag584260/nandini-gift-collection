@@ -1,4 +1,10 @@
 export const CATALOG = Object.freeze({
+  "dancing-monkey": { name: "Dancing monkey", price: 499 },
+  "rabbit-dance-toy": { name: "Rabbit Dance Toy", price: 599 },
+  "drummer-elephant": { name: "Drummer Elephant", price: 499 },
+  "banana-monkey-toy": { name: "Banana Monkey Toy", price: 249 },
+  "cute-puppy-dog": { name: "Cute Puppy Dog", price: 399 },
+
   "study-book-for-kids-learning": { name: "study book for kids learning", price: 349 },
   "gaddi-chargeable-remote-car-with-song": { name: "Gaddi Chargeable Remote Car with Song", price: 649 },
   "mobile-toy-for-kids-learning-with-fun": { name: "Mobile toy for kids (Learning with fun)", price: 249 },

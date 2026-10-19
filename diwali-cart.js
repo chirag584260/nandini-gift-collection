@@ -1,6 +1,12 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["dancing-monkey", "Dancing monkey", 499, "Each", "images/dancing-monkey-1.webp"],
+    ["rabbit-dance-toy", "Rabbit Dance Toy", 599, "Each", "images/rabbit-dance-toy-1.webp"],
+    ["drummer-elephant", "Drummer Elephant", 499, "Each", "images/drummer-elephant-1.webp"],
+    ["banana-monkey-toy", "Banana Monkey Toy", 249, "Each", "images/banana-monkey-toy-1.webp"],
+    ["cute-puppy-dog", "Cute Puppy Dog", 399, "Each", "images/cute-puppy-dog-1.webp"],
+
     ["study-book-for-kids-learning", "study book for kids learning", 349, "Each", "images/study-book-for-kids-learning-1.webp"],
     ["gaddi-chargeable-remote-car-with-song", "Gaddi Chargeable Remote Car with Song", 649, "Each", "images/gaddi-chargeable-remote-car-with-song-1.webp"],
     ["mobile-toy-for-kids-learning-with-fun", "Mobile toy for kids (Learning with fun)", 249, "Each", "images/mobile-toy-for-kids-learning-with-fun-1.webp"],
