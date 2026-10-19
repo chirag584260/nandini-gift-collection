@@ -36,3 +36,18 @@ test("rejects invalid quantities and duplicate items", () => {
     { id: "marigold-toran", quantity: 1 },
   ]), /invalid product/);
 });
+
+
+test("prices both rechargeable cars from the server catalog despite client prices", () => {
+  const cart = priceCart([
+    { id: "small-sunt-car-chargeable", quantity: 2, price: 1 },
+    { id: "smoke-remote-car-chargeable", quantity: 1, price: 1 },
+  ]);
+  assert.deepEqual(cart, {
+    lines: [
+      { id: "small-sunt-car-chargeable", name: "Small Sunt Car chargeable", quantity: 2, unitPrice: 399 },
+      { id: "smoke-remote-car-chargeable", name: "Smoke Remote Car chargeable", quantity: 1, unitPrice: 449 },
+    ],
+    amount: 1247,
+  });
+});
