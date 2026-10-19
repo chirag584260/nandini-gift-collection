@@ -22,12 +22,14 @@ body .buddha-photo-hint{font-size:.82rem}
 .diwali-eyebrow{font-size:.8rem}
 .footer{font-size:.96rem}
 body .owner-badge{font-size:.8rem}
-.shop-gallery img{height:275px}
-.card img{height:245px}
-.diwali-product-image{height:305px}
-.mp-product img{height:230px}
+.shop-gallery img{height:315px;padding:6px}
+.card img{height:280px}
+.diwali-product-image{height:350px;padding:8px}
+body .buddha-photo-slider img{padding:8px}
+.mp-product img{height:265px}
 body .owner-photo{width:170px;height:215px}
-body .catwrap .photo{height:215px}
+body .catwrap .photo{height:250px;padding:10px}
+body .catwrap .photo img{object-fit:contain}
 .diwali-cart-row{grid-template-columns:66px minmax(0,1fr) auto}
 .diwali-cart-row>img{width:66px;height:66px}
 .diwali-cart-row-info{font-size:1rem}
@@ -42,8 +44,8 @@ body .ga-btn{font-size:.94rem}
 }
 @media(max-width:760px){
   .hero p,.lead{font-size:1rem}
-  .shop-gallery img{height:235px}
-  .diwali-product-image{height:275px}
+  .shop-gallery img{height:270px}
+  .diwali-product-image{height:315px}
 }
 @media(max-width:640px){
   body .owner-photo{width:145px;height:185px}
@@ -58,10 +60,11 @@ body .ga-btn{font-size:.94rem}
   .hero .offer{font-size:.74rem}
   .price-box b{font-size:.95rem}
   .price-box strong{font-size:1.22rem}
-  .shop-gallery img{height:195px}
+  .shop-gallery img{height:225px;padding:4px}
   .shop-gallery figcaption{font-size:1rem}
   .diwali-tag{font-size:.85rem}
-  .diwali-product-image{height:210px}
+  .diwali-product-image{height:245px;padding:5px}
+  body .buddha-photo-slider img{padding:5px}
   body .diwali-product-info h3,body .diwali-product-info h4,
   body .kids-collection .diwali-product-info h3,body .showpieces-collection .diwali-product-info h3{font-size:1rem}
   .diwali-product-price{font-size:1.32rem}
@@ -69,8 +72,8 @@ body .ga-btn{font-size:.94rem}
   .diwali-group-title h3{font-size:1.15rem}
   .diwali-group-title strong{font-size:.9rem}
   body .buddha-photo-hint{font-size:.76rem}
-  body .catwrap .photo{height:170px;padding:8px}
-  .mp-product img{height:180px}
+  body .catwrap .photo{height:200px;padding:5px}
+  .mp-product img{height:210px}
   .mp-product h3{font-size:1rem}
   .diwali-cart-row{grid-template-columns:54px minmax(0,1fr) auto}
   .diwali-cart-row>img{width:54px;height:54px}
@@ -84,7 +87,14 @@ body .ga-btn{font-size:.94rem}
   html{scroll-padding-top:145px}
 }
 @media(max-width:359px){
-  .shop-gallery img{height:250px}
-  .diwali-product-image{height:275px}
+  .shop-gallery img{height:290px}
+  .diwali-product-image{height:315px}
 }
 
+/* Give category and variety photos a little more width on larger screens. */
+@media(min-width:761px){
+  .shop-gallery{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+}
+@media(min-width:901px){
+  .catwrap .catgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
