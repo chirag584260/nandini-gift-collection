@@ -1,4 +1,5 @@
 export const CATALOG = Object.freeze({
+  "gaddi-chargeable-remote-car-with-song": { name: "Gaddi Chargeable Remote Car with Song", price: 649 },
   "mobile-toy-for-kids-learning-with-fun": { name: "Mobile toy for kids (Learning with fun)", price: 249 },
   "small-sunt-car-chargeable": { name: "Small Sunt Car chargeable", price: 399 },
   "smoke-remote-car-chargeable": { name: "Smoke Remote Car chargeable", price: 449 },

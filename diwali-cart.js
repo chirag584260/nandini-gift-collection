@@ -1,6 +1,7 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["gaddi-chargeable-remote-car-with-song", "Gaddi Chargeable Remote Car with Song", 649, "Each", "images/gaddi-chargeable-remote-car-with-song-1.webp"],
     ["mobile-toy-for-kids-learning-with-fun", "Mobile toy for kids (Learning with fun)", 249, "Each", "images/mobile-toy-for-kids-learning-with-fun-1.webp"],
     ["small-sunt-car-chargeable", "Small Sunt Car chargeable", 399, "Each", "images/small-sunt-car-chargeable-1.webp"],
     ["smoke-remote-car-chargeable", "Smoke Remote Car chargeable", 449, "Each", "images/smoke-remote-car-chargeable-1.webp"],
