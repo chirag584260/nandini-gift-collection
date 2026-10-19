@@ -336,3 +336,13 @@ body .ga-choices button{min-height:40px}
 .diwali-enquiry-label input[type=checkbox]{appearance:auto;flex:0 0 auto;width:20px;height:20px;min-height:20px;margin:3px 0 0;accent-color:#8d2754}
 .diwali-enquiry-option small{display:block;margin-top:8px;line-height:1.5;color:#685344}
 .diwali-enquiry-status{font-size:.85rem;line-height:1.4;margin:8px 0 0}
+
+/* Customer-sent WhatsApp gift enquiry; independent of backend storage. */
+.diwali-whatsapp-enquiry{margin:16px 0;padding:15px;border:1px solid #b8d8c7;border-radius:12px;background:#f0fbf5}
+.diwali-whatsapp-enquiry h3{margin:0 0 7px;font-size:1.05rem;color:#185938}
+.diwali-whatsapp-enquiry>p{margin:7px 0 10px;font-size:.9rem;line-height:1.5}
+.diwali-whatsapp-enquiry-button{display:block;width:100%;min-height:48px;margin:12px 0 8px;padding:12px 14px;border:0;border-radius:10px;background:#176d42;color:#fff;font:inherit;font-weight:800;cursor:pointer;white-space:normal}
+.diwali-whatsapp-enquiry-button:hover{background:#125733}
+.diwali-whatsapp-enquiry-button:focus-visible{outline:3px solid #1269bf;outline-offset:3px}
+.diwali-whatsapp-enquiry small{display:block;font-size:.8rem;line-height:1.5;color:#365d48}
+.diwali-whatsapp-enquiry-status{font-weight:600;color:#185938}
