@@ -22,13 +22,13 @@ body .buddha-photo-hint{font-size:.82rem}
 .diwali-eyebrow{font-size:.8rem}
 .footer{font-size:.96rem}
 body .owner-badge{font-size:.8rem}
-.shop-gallery img{height:315px;padding:6px}
-.card img{height:280px}
-.diwali-product-image{height:350px;padding:8px}
+.shop-gallery img{height:380px;padding:4px}
+.card img{height:340px}
+.diwali-product-image{height:410px;padding:6px}
 body .buddha-photo-slider img{padding:8px}
 .mp-product img{height:265px}
 body .owner-photo{width:170px;height:215px}
-body .catwrap .photo{height:250px;padding:10px}
+body .catwrap .photo{height:320px;padding:6px}
 body .catwrap .photo img{object-fit:contain}
 .diwali-cart-row{grid-template-columns:66px minmax(0,1fr) auto}
 .diwali-cart-row>img{width:66px;height:66px}
@@ -93,8 +93,24 @@ body .ga-btn{font-size:.94rem}
 
 /* Give category and variety photos a little more width on larger screens. */
 @media(min-width:761px){
-  .shop-gallery{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .shop-gallery{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 }
 @media(min-width:901px){
-  .catwrap .catgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .catwrap .catgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* Wider cards make the photos clearly larger, including on phones. */
+.diwali-product-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+@media(min-width:601px) and (max-width:900px){
+  .catwrap .catgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  .shop-gallery,.diwali-product-grid,.mp-product-grid,
+  body .kids-collection .diwali-product-grid,
+  body .showpieces-collection .diwali-product-grid,
+  .catwrap .catgrid{grid-template-columns:minmax(0,1fr)}
+  .shop-gallery img{height:clamp(300px,85vw,380px);padding:4px}
+  .diwali-product-image{height:clamp(330px,95vw,420px);padding:5px}
+  body .catwrap .photo{height:clamp(300px,85vw,380px);padding:5px}
+  .mp-product img{height:clamp(280px,80vw,360px)}
 }
