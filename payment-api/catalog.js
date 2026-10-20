@@ -1,4 +1,7 @@
 export const CATALOG = Object.freeze({
+  "ram-darbar-white-stone-murti": {"name": "Ram Darbar white stone Murti", "price": 1199},
+  "ashirwad-ganesh-ji-murti": {"name": "Ashirwad Ganesh ji Murti", "price": 1299},
+  "kesariya-hanuman-ji-murti": {"name": "Kesariya Hanuman ji Murti", "price": 349},
   "ganesh-ji-black-stone-idol": { name: "Ganesh ji Black Stone Idol", price: 1299 },
   "kanha-ji-with-cow-murti": { name: "Kanha ji with cow Murti", price: 1199 },
   "face-kanha": { name: "Face Kanha", price: 999 },

@@ -1,6 +1,9 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["ram-darbar-white-stone-murti", "Ram Darbar white stone Murti", 1199, "Each", "images/ram-darbar-white-stone-murti-1.webp"],
+    ["ashirwad-ganesh-ji-murti", "Ashirwad Ganesh ji Murti", 1299, "Each", "images/ashirwad-ganesh-ji-murti-1.webp"],
+    ["kesariya-hanuman-ji-murti", "Kesariya Hanuman ji Murti", 349, "Each", "images/kesariya-hanuman-ji-murti-1.webp"],
     ["ganesh-ji-black-stone-idol", "Ganesh ji Black Stone Idol", 1299, "Each", "images/ganesh-ji-black-stone-idol-1.webp"],
     ["kanha-ji-with-cow-murti", "Kanha ji with cow Murti", 1199, "Each", "images/kanha-ji-with-cow-murti-1.webp"],
     ["face-kanha", "Face Kanha", 999, "Each", "images/face-kanha-1.webp"],
