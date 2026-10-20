@@ -1,4 +1,8 @@
 export const CATALOG = Object.freeze({
+  "ganesh-ji-black-stone-idol": { name: "Ganesh ji Black Stone Idol", price: 1299 },
+  "kanha-ji-with-cow-murti": { name: "Kanha ji with cow Murti", price: 1199 },
+  "face-kanha": { name: "Face Kanha", price: 999 },
+  "radha-krishna-matki-murti": { name: "Radha Krishna Matki Murti", price: 1299 },
   "high-speed-remote-charging-car": { name: "High speed remote charging Car", price: 749 },
   "rock-crawler-remote-car": { name: "Rock crawler remote car", price: 699 },
   "lightspeed-smoke-charging-car": { name: "lightspeed smoke charging car", price: 799 },
