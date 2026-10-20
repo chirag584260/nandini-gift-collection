@@ -1,6 +1,10 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["high-speed-remote-charging-car", "High speed remote charging Car", 749, "Each", "images/high-speed-remote-charging-car-1.webp"],
+    ["rock-crawler-remote-car", "Rock crawler remote car", 699, "Each", "images/rock-crawler-remote-car-1.webp"],
+    ["lightspeed-smoke-charging-car", "lightspeed smoke charging car", 799, "Each", "images/lightspeed-smoke-charging-car-1.webp"],
+
     ["dancing-monkey", "Dancing monkey", 499, "Each", "images/dancing-monkey-1.webp"],
     ["rabbit-dance-toy", "Rabbit Dance Toy", 599, "Each", "images/rabbit-dance-toy-1.webp"],
     ["drummer-elephant", "Drummer Elephant", 499, "Each", "images/drummer-elephant-1.webp"],

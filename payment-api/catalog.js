@@ -1,4 +1,8 @@
 export const CATALOG = Object.freeze({
+  "high-speed-remote-charging-car": { name: "High speed remote charging Car", price: 749 },
+  "rock-crawler-remote-car": { name: "Rock crawler remote car", price: 699 },
+  "lightspeed-smoke-charging-car": { name: "lightspeed smoke charging car", price: 799 },
+
   "dancing-monkey": { name: "Dancing monkey", price: 499 },
   "rabbit-dance-toy": { name: "Rabbit Dance Toy", price: 599 },
   "drummer-elephant": { name: "Drummer Elephant", price: 499 },
