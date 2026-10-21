@@ -1,4 +1,9 @@
 export const CATALOG = Object.freeze({
+  "multi-dress-fashion-doll": {"name": "Multi dress Fashion doll", "price": 399},
+  "cute-hanging-purse-doll": {"name": "Cute Hanging Purse doll", "price": 449},
+  "maria-doll": {"name": "Maria Doll", "price": 449},
+  "alia-traditional-doll": {"name": "ALIA traditional doll", "price": 449},
+  "innocent-cute-doll": {"name": "Innocent Cute doll", "price": 449},
   "ram-darbar-white-stone-murti": {"name": "Ram Darbar white stone Murti", "price": 1199},
   "ashirwad-ganesh-ji-murti": {"name": "Ashirwad Ganesh ji Murti", "price": 1299},
   "kesariya-hanuman-ji-murti": {"name": "Kesariya Hanuman ji Murti", "price": 349},

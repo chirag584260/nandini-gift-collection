@@ -1,6 +1,11 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["multi-dress-fashion-doll", "Multi dress Fashion doll", 399, "Each", "images/multi-dress-fashion-doll-1.webp"],
+    ["cute-hanging-purse-doll", "Cute Hanging Purse doll", 449, "Each", "images/cute-hanging-purse-doll-1.webp"],
+    ["maria-doll", "Maria Doll", 449, "Each", "images/maria-doll-1.webp"],
+    ["alia-traditional-doll", "ALIA traditional doll", 449, "Each", "images/alia-traditional-doll-1.webp"],
+    ["innocent-cute-doll", "Innocent Cute doll", 449, "Each", "images/innocent-cute-doll-1.webp"],
     ["ram-darbar-white-stone-murti", "Ram Darbar white stone Murti", 1199, "Each", "images/ram-darbar-white-stone-murti-1.webp"],
     ["ashirwad-ganesh-ji-murti", "Ashirwad Ganesh ji Murti", 1299, "Each", "images/ashirwad-ganesh-ji-murti-1.webp"],
     ["kesariya-hanuman-ji-murti", "Kesariya Hanuman ji Murti", 349, "Each", "images/kesariya-hanuman-ji-murti-1.webp"],
