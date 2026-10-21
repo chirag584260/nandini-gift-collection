@@ -1,6 +1,7 @@
 (() => {
   const PAYMENT_API_BASE = "https://nandini-gift-payment-api.onrender.com";
   const PRODUCTS = [
+    ["beautiful-dazzling-doll-shoe-style", "Beautiful Dazzling doll Shoe style", 249, "Each", "images/beautiful-dazzling-doll-shoe-style-1.webp"],
     ["frozen-two-doll-set", "Frozen two doll set", 149, "Each", "images/frozen-two-doll-set-1.jpg"],
     ["city-fashion-doll", "City fashion doll", 349, "Each", "images/city-fashion-doll-1.webp"],
     ["multi-dress-fashion-doll", "Multi dress Fashion doll", 399, "Each", "images/multi-dress-fashion-doll-1.webp"],

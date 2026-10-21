@@ -1,4 +1,5 @@
 export const CATALOG = Object.freeze({
+  "beautiful-dazzling-doll-shoe-style": {"name": "Beautiful Dazzling doll Shoe style", "price": 249},
   "frozen-two-doll-set": {"name": "Frozen two doll set", "price": 149},
   "city-fashion-doll": {"name": "City fashion doll", "price": 349},
   "multi-dress-fashion-doll": {"name": "Multi dress Fashion doll", "price": 399},
