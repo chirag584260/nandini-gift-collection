@@ -8,9 +8,9 @@
     ["kanha-ji-with-cow-murti", "Kanha ji with cow Murti", 1199, "Each", "images/kanha-ji-with-cow-murti-1.webp"],
     ["face-kanha", "Face Kanha", 999, "Each", "images/face-kanha-1.webp"],
     ["radha-krishna-matki-murti", "Radha Krishna Matki Murti", 1299, "Each", "images/radha-krishna-matki-murti-1.webp"],
-    ["high-speed-remote-charging-car", "High speed remote charging Car", 749, "Each", "images/high-speed-remote-charging-car-1.webp"],
-    ["rock-crawler-remote-car", "Rock crawler remote car", 699, "Each", "images/rock-crawler-remote-car-1.webp"],
-    ["lightspeed-smoke-charging-car", "lightspeed smoke charging car", 799, "Each", "images/lightspeed-smoke-charging-car-1.webp"],
+    ["high-speed-remote-charging-car", "High speed remote charging Car", 749, "Each", "images/high-speed-remote-charging-car-1-white.webp"],
+    ["rock-crawler-remote-car", "Rock crawler remote car", 699, "Each", "images/rock-crawler-remote-car-1-white.webp"],
+    ["lightspeed-smoke-charging-car", "lightspeed smoke charging car", 799, "Each", "images/lightspeed-smoke-charging-car-1-white.webp"],
 
     ["dancing-monkey", "Dancing monkey", 499, "Each", "images/dancing-monkey-1.webp"],
     ["rabbit-dance-toy", "Rabbit Dance Toy", 599, "Each", "images/rabbit-dance-toy-1.webp"],
