@@ -50,14 +50,14 @@
     ["dancing-duck","Cute Dancing Duck Toy (Ages 1–3)",599,"Each","images/dancing-duck-white.webp"],
     ["walking-dog-puppy","Walking Cute Dog Puppy",399,"Each","images/walking-dog-puppy-white.webp"],
     ["elephant-toy","Battery-Operated Elephant Toy",399,"Each","images/elephant-toy-white.webp"],
-    ["buddha-hands-on-pose-statue","Buddha Hands-on pose Statue",799,"Each","images/buddha-hands-on-pose-statue-1.webp"],
-    ["ram-lala-statue","Ram Lala Statue",899,"Each","images/ram-lala-statue.jpg"],
-    ["krishna-face-statue","Krishna Face Statue",699,"Each","images/krishna-face-statue.webp"],
-    ["buddha-face-statue","Buddha Face Statue",499,"Each","images/buddha-face-statue.webp"],
-    ["meditate-buddha-statue","Meditate Buddha Statue",799,"Each","images/meditate-buddha-statue.webp"],
-    ["greenmonk-buddha","GreenMonk Buddha",699,"Each","images/greenmonk-buddha.webp"],
-    ["swan-couple-black","Swan Couple (Black)",799,"Each","images/swan-couple-black.webp"],
-    ["rajasthani-set-of-4","Rajasthani Set of 4",1299,"Each","images/rajasthani-set-of-4.webp"],
+    ["buddha-hands-on-pose-statue","Buddha Hands-on pose Statue",799,"Each","images/buddha-hands-on-pose-statue-1-white.webp"],
+    ["ram-lala-statue","Ram Lala Statue",899,"Each","images/ram-lala-statue-white.webp"],
+    ["krishna-face-statue","Krishna Face Statue",699,"Each","images/krishna-face-statue-white.webp"],
+    ["buddha-face-statue","Buddha Face Statue",499,"Each","images/buddha-face-statue-white.webp"],
+    ["meditate-buddha-statue","Meditate Buddha Statue",799,"Each","images/meditate-buddha-statue-white.webp"],
+    ["greenmonk-buddha","GreenMonk Buddha",699,"Each","images/greenmonk-buddha-white.webp"],
+    ["swan-couple-black","Swan Couple (Black)",799,"Each","images/swan-couple-black-white.webp"],
+    ["rajasthani-set-of-4","Rajasthani Set of 4",1299,"Each","images/rajasthani-set-of-4-white.webp"],
   ].map(([id,name,price,unit,image])=>({id,name,price,unit,image}));
   const byId=new Map(PRODUCTS.map(p=>[p.id,p]));
   const visibilityFix=document.createElement("style");
